@@ -100,6 +100,16 @@ nav a[aria-current=page]{color:#fff;border-bottom-color:var(--red)}
 .alertbar b{font-family:var(--display);font-size:19px;font-weight:800}
 .alertbar span{font-size:16px;border-left:2px solid rgba(255,255,255,.6);padding-left:14px}
 .alertbar:hover{background:var(--red-dark)}
+.ticker[hidden]{display:none}
+.ticker{flex:1;min-width:0;overflow:hidden;white-space:nowrap;border-left:2px solid rgba(255,255,255,.6);padding-left:14px}
+.ticker-track{display:inline-flex;animation:tick var(--dur,30s) linear infinite;will-change:transform}
+.alertbar .ticker-track span{border:0;padding:0 60px 0 0;font-size:16.5px;font-weight:600}
+.alertbar.live .wrap{flex-wrap:nowrap;justify-content:flex-start}
+.alertbar.live b{white-space:nowrap}
+.alertbar.live svg{animation:pulse .9s ease-in-out infinite alternate}
+.alertbar:hover .ticker-track{animation-play-state:paused}
+@keyframes tick{to{transform:translateX(-50%)}}
+@keyframes pulse{to{opacity:.35}}
 
 /* pages */
 main{min-height:70vh}
@@ -271,6 +281,8 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
   .alertbar .wrap{flex-direction:column;gap:4px}
   .alertbar svg{display:none}
   .alertbar span{border:0;padding:0;font-size:15px}
+  .alertbar.live .wrap{flex-direction:column;align-items:stretch;text-align:center}
+  .ticker{border:0;padding:0}
   section{padding:46px 0}
   .head{margin-bottom:28px}
   .g4,.row2,.partners{grid-template-columns:1fr}
@@ -287,7 +299,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
   .pagehead{padding:38px 0 32px}
   .sub{margin:34px 0 14px;font-size:15.5px}
 }
-@media (prefers-reduced-motion:reduce){a.card,.fb{transition:none}}
+@media (prefers-reduced-motion:reduce){a.card,.fb{transition:none}.ticker{white-space:normal}.ticker-track{animation:none;display:block}.ticker-track span+span{display:none}.alertbar.live svg{animation:none}}
 </style>
 </head>
 <body>
@@ -385,6 +397,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 1.5 21h21zM11 9.5h2v6h-2zm0 7.5h2v2h-2z"/></svg>
     <b>Emergency Information</b>
     <span id="alertText">Check local alerts and weather updates for Wayne County</span>
+    <div class="ticker" id="ticker" hidden><div class="ticker-track" id="tickerTrack"></div></div>
   </div>
 </a>
 
@@ -729,18 +742,38 @@ var SHEET_ID = '';
     document.getElementById('wxNote').textContent='The live forecast could not load in this preview. Source: National Weather Service.';
   });
 
-  fetch('https://api.weather.gov/alerts/active?point='+LAT+','+LON,H).then(function(r){return r.json();})
-  .then(function(a){
-    var list=a.features||[];
-    if(list.length){
-      var names=list.map(function(x){return x.properties.event;}).filter(function(v,i,s){return s.indexOf(v)===i;});
-      document.getElementById('alertText').textContent='Active now: '+names.join(', ')+'. Tap for details.';
-      document.getElementById('heroAlerts').textContent=names.length+' active';
+  // Red bar: scrolls the active National Weather Service alerts for Wayne County
+  function showAlerts(headlines){
+    var bar=document.getElementById('alertbar'),txt=document.getElementById('alertText'),tk=document.getElementById('ticker');
+    if(headlines.length){
+      var line=headlines.join('   \u2022   ');
+      var track=document.getElementById('tickerTrack');
+      track.innerHTML='<span>'+esc(line)+'</span><span aria-hidden="true">'+esc(line)+'</span>';
+      track.style.setProperty('--dur',Math.max(18,Math.round(line.length/5))+'s');
+      bar.classList.add('live');bar.href='https://www.weather.gov/pah/';bar.target='_blank';bar.rel='noopener';
+      bar.querySelector('b').textContent='Weather Alert';
+      txt.hidden=true;tk.hidden=false;
+      document.getElementById('heroAlerts').textContent=headlines.length+' active';
     }else{
-      document.getElementById('alertText').textContent='No active weather alerts for Wayne County right now';
+      bar.classList.remove('live');bar.href='#weather';bar.removeAttribute('target');
+      bar.querySelector('b').textContent='Emergency Information';
+      tk.hidden=true;txt.hidden=false;
+      txt.textContent='No active weather alerts for Wayne County right now';
       document.getElementById('heroAlerts').textContent='None active';
     }
-  }).catch(function(){document.getElementById('heroAlerts').textContent='Unavailable in preview';});
+  }
+  function checkAlerts(){
+    // Add ?testalert to the site address to preview the scrolling bar
+    if(/[?&]testalert/.test(location.search)){showAlerts(['TEST ONLY: Tornado Warning for Wayne County until 6:45 PM. This is a sample to show how the alert bar looks.']);return;}
+    fetch('https://api.weather.gov/alerts/active?point='+LAT+','+LON,H).then(function(r){return r.json();})
+    .then(function(a){
+      var seen={},list=[];
+      (a.features||[]).forEach(function(x){var h=x.properties.headline||x.properties.event;if(h&&!seen[h]){seen[h]=1;list.push(h);}});
+      showAlerts(list);
+    }).catch(function(){document.getElementById('heroAlerts').textContent='Unavailable in preview';});
+  }
+  checkAlerts();
+  setInterval(checkAlerts,120000);
 })();
 </script>
 </body>
