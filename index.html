@@ -129,6 +129,17 @@ a.card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(10,28,54,.12
 .tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
 .go{display:inline-block;margin-top:14px;font-weight:600;font-size:15px;color:#fff;background:var(--navy);padding:8px 16px;border-radius:6px}
 
+/* announcement + floating Facebook button */
+.announce{display:block;background:var(--amber);color:#1a1405;text-decoration:none;font-weight:600}
+.announce[hidden]{display:none}
+.announce .wrap{display:flex;align-items:center;justify-content:center;gap:12px;padding-top:11px;padding-bottom:11px;flex-wrap:wrap;text-align:center}
+.announce b{font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;background:var(--navy);color:#fff;border-radius:5px;padding:4px 10px}
+.fb{position:fixed;right:20px;bottom:20px;z-index:40;width:54px;height:54px;border-radius:50%;background:#1877f2;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;font:800 34px/1 Arial,Helvetica,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.35);border:2px solid #fff;transition:transform .15s}
+.fb span{transform:translateY(3px)}
+.fb:hover{transform:scale(1.08)}
+.ggrid{display:flex;flex-wrap:wrap;justify-content:center;gap:20px}
+.ggrid>.card{flex:0 1 calc((100% - 40px)/3)}
+
 /* feature cards */
 .feat{padding:0;overflow:hidden;display:flex;flex-direction:column}
 .feat .ph{aspect-ratio:2/1;background:#1c2a44 center/cover no-repeat}
@@ -224,6 +235,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
   .g4{grid-template-columns:repeat(2,1fr)}
   .g3{grid-template-columns:1fr}
   .person,.mgrid.c4 .person{flex-basis:calc((100% - 20px)/2)}
+  .ggrid>.card{flex-basis:calc((100% - 20px)/2)}
   .menu-btn{display:flex}
   nav{display:none;position:absolute;left:-24px;right:-24px;top:100%;background:var(--navy);border-top:1px solid rgba(255,255,255,.14);box-shadow:0 12px 24px rgba(0,0,0,.35);padding:6px 24px 14px}
   nav.open{display:block}nav ul{flex-direction:column;gap:0}
@@ -262,7 +274,8 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
   section{padding:46px 0}
   .head{margin-bottom:28px}
   .g4,.row2,.partners{grid-template-columns:1fr}
-  .person,.mgrid.c4 .person{flex-basis:100%}
+  .person,.mgrid.c4 .person,.ggrid>.card{flex-basis:100%}
+  .fb{right:14px;bottom:14px;width:50px;height:50px;font-size:31px}
   .mgrid{gap:12px}
   .card{padding:20px}
   .ev{grid-template-columns:66px 1fr;gap:14px;padding:14px;align-items:start}
@@ -274,7 +287,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
   .pagehead{padding:38px 0 32px}
   .sub{margin:34px 0 14px;font-size:15.5px}
 }
-@media (prefers-reduced-motion:reduce){a.card{transition:none}}
+@media (prefers-reduced-motion:reduce){a.card,.fb{transition:none}}
 </style>
 </head>
 <body>
@@ -331,6 +344,8 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
   </div>
 </header>
 
+<a class="announce" id="announce" hidden><div class="wrap"><b>Announcement</b><span id="announceText"></span></div></a>
+
 <main>
 <div class="page active" id="home">
 <div class="hero">
@@ -351,7 +366,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
       <hr>
       <div class="status-row"><span>NWS alerts</span><b id="heroAlerts">Checking…</b></div>
       <hr>
-      <div class="status-row"><span>Office</span><b><a href="tel:+16188423884" style="text-decoration:none">(618) 842-3884</a></b></div>
+      <div class="status-row"><span>Office</span><b><a data-phone href="tel:+16188423884" style="text-decoration:none">(618) 842-3884</a></b></div>
     </aside>
   </div>
   <div class="phases-band"><div class="wrap">
@@ -407,7 +422,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
     <a class="card" href="https://www.dhs.gov/national-terrorism-advisory-system" target="_blank" rel="noopener"><span class="tag">Homeland Security</span><h3>NTAS advisories</h3><p>National Terrorism Advisory System bulletins and alerts.</p><span class="go">View advisories ›</span></a>
     <a class="card" href="https://www.weather.gov/pah/" target="_blank" rel="noopener"><span class="tag">NWS Paducah</span><h3>Skywarn spotters</h3><p>Train as a volunteer severe weather spotter.</p><span class="go">Spotter program ›</span></a>
     <a class="card" href="#weather"><span class="tag">Local data</span><h3>Weather station</h3><p>Live readings from the WCEMA station in Fairfield.</p><span class="go">See conditions ›</span></a>
-    <a class="card" href="#" data-placeholder><span class="tag">Stay connected</span><h3>Facebook</h3><p>Follow us for updates during severe weather and events.</p><span class="go">Follow us ›</span></a>
+    <a class="card" data-fb href="https://www.facebook.com/waynecoema" target="_blank" rel="noopener"><span class="tag">Stay connected</span><h3>Facebook</h3><p>Follow us for updates during severe weather and events.</p><span class="go">Follow us ›</span></a>
   </div>
 </section>
 </div>
@@ -443,15 +458,8 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
 <div class="pagehead"><div class="wrap"><h1>Preparedness</h1><p>Guides and resources to get your household ready</p></div></div>
 <section>
   <div class="wrap">
-    <div class="head"><h2>Be ready before it happens</h2><p>Guides for the hazards most likely to affect Wayne County. Download one, make a plan, and build a kit.</p></div>
-    <div class="grid g3">
-      <a class="card" href="https://www.ready.gov" target="_blank" rel="noopener"><span class="tag">Start here</span><h3>Ready.gov</h3><p>Plans, kits, and checklists for every kind of emergency.</p><span class="go">Visit Ready.gov ›</span></a>
-      <a class="card" href="#" data-placeholder><span class="tag">Severe weather</span><h3>Severe weather preparedness</h3><p>Illinois guide to sirens, shelters, and weather radios.</p><span class="go">Open guide ›</span></a>
-      <a class="card" href="#" data-placeholder><span class="tag">Severe weather</span><h3>Thunderstorms, tornadoes, lightning</h3><p>What to do before, during, and after a storm.</p><span class="go">Open guide ›</span></a>
-      <a class="card" href="#" data-placeholder><span class="tag">Earthquake</span><h3>Yes you can survive an earthquake</h3><p>Safety and survival tips for the Central U.S.</p><span class="go">Open guide ›</span></a>
-      <a class="card" href="#" data-placeholder><span class="tag">Earthquake</span><h3>Central U.S. earthquake guide</h3><p>Understanding the risk and staying safe at home.</p><span class="go">Open guide ›</span></a>
-      <a class="card" href="#" data-placeholder><span class="tag">Earthquake</span><h3>Mobile home owners</h3><p>Earthquake preparedness for Central U.S. mobile homes.</p><span class="go">Open guide ›</span></a>
-    </div>
+    <div class="head"><h2>Be ready before it happens</h2><p>Official FEMA guides for the hazards most likely to affect Wayne County. Read up, make a plan, and build a kit.</p></div>
+    <div class="ggrid" id="guides"></div>
   </div>
 </section>
 </div>
@@ -478,7 +486,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
     </div>
     <p class="wx-note" id="wxNote">Source: National Weather Service, Paducah, KY.</p>
     <div class="grid g3">
-      <a class="card" href="#" data-placeholder><span class="tag">Local data</span><h3>WCEMA weather station</h3><p>Temperature, dew point, wind, and rain from our own station.</p><span class="go">Open station ›</span></a>
+      <a class="card" href="#" data-placeholder data-station><span class="tag">Local data</span><h3>WCEMA weather station</h3><p>Temperature, dew point, wind, and rain from our own station.</p><span class="go">Open station ›</span></a>
       <a class="card" href="https://radar.weather.gov/" target="_blank" rel="noopener"><span class="tag">Radar</span><h3>Live radar</h3><p>National Weather Service radar for the region.</p><span class="go">Open radar ›</span></a>
       <a class="card" href="https://www.weather.gov/pah/" target="_blank" rel="noopener"><span class="tag">Forecast office</span><h3>NWS Paducah</h3><p>Watches, warnings, and forecast discussions.</p><span class="go">Visit NWS ›</span></a>
     </div>
@@ -505,11 +513,11 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
       </form>
       <div class="card loc">
         <div class="e911">For emergencies, call 911</div>
-        <iframe title="Map of 505 SW 10th St, Fairfield, IL" loading="lazy" src="https://maps.google.com/maps?q=505%20SW%2010th%20St%2C%20Fairfield%2C%20IL%2062837&z=14&output=embed"></iframe>
+        <iframe id="map" title="Map of the Wayne County EMA office" loading="lazy" src="https://maps.google.com/maps?q=505%20SW%2010th%20St%2C%20Fairfield%2C%20IL%2062837&z=14&output=embed"></iframe>
         <div class="loc-info">
           <h3>Wayne County EMA</h3>
-          <p>505 SW 10th St.<br>Fairfield, Illinois 62837</p>
-          <a class="phone" href="tel:+16188423884">(618) 842-3884</a>
+          <p><span data-addr1>505 SW 10th St.</span><br><span data-addr2>Fairfield, Illinois 62837</span></p>
+          <a class="phone" data-phone href="tel:+16188423884">(618) 842-3884</a>
         </div>
       </div>
     </div>
@@ -523,17 +531,20 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
     <ul class="fl">
       <li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#preparedness">Preparedness</a></li><li><a href="#members">Members</a></li><li><a href="#weather">Weather</a></li><li><a href="#contact">Contact</a></li>
     </ul>
-    <div>Wayne County Emergency Management Agency · 505 SW 10th St., Fairfield, IL 62837 · (618) 842-3884</div>
+    <div>Wayne County Emergency Management Agency · <span data-addr1>505 SW 10th St.</span>, <span data-addr2>Fairfield, Illinois 62837</span> · <span data-phone-text>(618) 842-3884</span></div>
     <div style="margin-top:8px;opacity:.7">Redesign concept. Not the official site.</div>
   </div>
 </footer>
+
+<a class="fb" data-fb href="https://www.facebook.com/waynecoema" target="_blank" rel="noopener" aria-label="Wayne County EMA on Facebook" title="Find us on Facebook"><span aria-hidden="true">f</span></a>
 
 <script>
 /* ============================================================
    GOOGLE SHEET HOOKUP
    Paste the Sheet's ID between the quotes below. The ID is the
    long code in the Sheet's web address, between /d/ and /edit.
-   The Sheet needs two tabs named exactly: Events and Members.
+   The Sheet needs tabs named exactly: Events, Members, Guides,
+   Announcement, and Site Info.
    Share it as "Anyone with the link: Viewer".
    Leave it blank to use the built-in lists further down.
    ============================================================ */
@@ -566,7 +577,7 @@ var SHEET_ID = '';
   show(location.hash.slice(1)||'home');
 
   document.getElementById('contactForm').addEventListener('submit',function(e){e.preventDefault();document.getElementById('formNote').style.display='block';});
-  document.querySelectorAll('[data-placeholder]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();});a.title='Link to be added';});
+  document.querySelectorAll('[data-placeholder]').forEach(function(a){a.addEventListener('click',function(e){if(a.hasAttribute('data-placeholder'))e.preventDefault();});a.title='Link to be added';});
 
   function esc(s){var d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML;}
 
@@ -654,6 +665,52 @@ var SHEET_ID = '';
   }
   renderMembers(DEFAULT_MEMBERS);
   loadTab('Members').then(function(r){if(r.length)renderMembers(r);}).catch(function(){});
+
+  /* ---------- Preparedness guides ---------- */
+  function safeUrl(u){u=(u||'').trim();return /^https?:\/\//i.test(u)?u:'';}
+  var DEFAULT_GUIDES=[
+    ['Start here','Ready.gov','Plans, kits, and checklists for every kind of emergency.','https://www.ready.gov'],
+    ['Severe weather','Tornadoes','How to prepare, where to shelter, and what to do after a tornado.','https://www.ready.gov/tornadoes'],
+    ['Severe weather','Thunderstorms and lightning','Staying safe from lightning, hail, and damaging winds.','https://www.ready.gov/thunderstorms-lightning'],
+    ['Flooding','Floods','Flash flood safety, flood insurance, and cleanup.','https://www.ready.gov/floods'],
+    ['Earthquake','Earthquakes','Drop, cover, and hold on, plus how to secure your home.','https://www.ready.gov/earthquakes'],
+    ['Get ready','Build a kit','The supplies every household should have on hand.','https://www.ready.gov/kit']
+  ].map(function(g){return {category:g[0],title:g[1],description:g[2],link:g[3]};});
+  function renderGuides(list){
+    document.getElementById('guides').innerHTML=list.filter(function(g){return g.title;}).map(function(g){
+      var u=safeUrl(g.link);
+      return '<a class="card"'+(u?' href="'+esc(u)+'" target="_blank" rel="noopener"':'')+'>'+(g.category?'<span class="tag">'+esc(g.category)+'</span>':'')+
+        '<h3>'+esc(g.title)+'</h3><p>'+esc(g.description)+'</p>'+(u?'<span class="go">Open guide ›</span>':'')+'</a>';
+    }).join('');
+  }
+  renderGuides(DEFAULT_GUIDES);
+  loadTab('Guides').then(function(r){if(r.length)renderGuides(r);}).catch(function(){});
+
+  /* ---------- Announcement banner ---------- */
+  loadTab('Announcement').then(function(r){
+    var a=r[0];if(!a||!a.message||!/^(y|yes|true|on)$/i.test(a.show||''))return;
+    var el=document.getElementById('announce'),u=safeUrl(a.link);
+    document.getElementById('announceText').textContent=a.message;
+    if(u){el.href=u;el.target='_blank';el.rel='noopener';}
+    el.hidden=false;
+  }).catch(function(){});
+
+  /* ---------- Contact info and links ---------- */
+  loadTab('Site Info').then(function(r){
+    var v={};r.forEach(function(x){if(x.setting)v[x.setting.toLowerCase().replace(/[^a-z0-9]/g,'')]=x.value||'';});
+    function each(sel,fn){document.querySelectorAll(sel).forEach(fn);}
+    if(v.phone){var digits=v.phone.replace(/\D/g,'');if(digits.length===10)digits='1'+digits;
+      each('[data-phone]',function(a){a.textContent=v.phone;a.href='tel:+'+digits;});
+      each('[data-phone-text]',function(a){a.textContent=v.phone;});}
+    if(v.streetaddress)each('[data-addr1]',function(a){a.textContent=v.streetaddress;});
+    if(v.citystatezip)each('[data-addr2]',function(a){a.textContent=v.citystatezip;});
+    if(v.streetaddress||v.citystatezip){var m=document.getElementById('map');
+      var q=encodeURIComponent((v.streetaddress||'505 SW 10th St.')+', '+(v.citystatezip||'Fairfield, IL 62837'));
+      if(m&&m.tagName==='IFRAME')m.src='https://maps.google.com/maps?q='+q+'&z=14&output=embed';
+      else if(m)m.href='https://www.google.com/maps/search/?api=1&query='+q;}
+    var fb=safeUrl(v.facebooklink);if(fb)each('[data-fb]',function(a){a.href=fb;});
+    var st=safeUrl(v.weatherstationlink);if(st)each('[data-station]',function(a){a.href=st;a.target='_blank';a.rel='noopener';a.removeAttribute('data-placeholder');a.removeAttribute('title');});
+  }).catch(function(){});
 
   /* ---------- Live National Weather Service data for Fairfield, IL ---------- */
   var LAT=38.3789,LON=-88.3598,H={headers:{Accept:'application/geo+json'}};
