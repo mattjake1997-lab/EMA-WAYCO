@@ -6,114 +6,151 @@
 <title>Wayne County EMA: Redesign Concept</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;1,700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#0a1c36; --navy-2:#12294c; --navy-3:#1c3a66;
+  --navy:#0a1c36; --navy-2:#12294c; --navy-3:#1c3a66; --night:#070d18;
   --red:#c8102e; --red-dark:#a00d25;
-  --paper:#f5f3ee; --card:#ffffff; --line:#dedad0;
-  --ink:#16202e; --muted:#5b6676;
+  --paper:#f3f4f6; --card:#ffffff; --line:#d9dde4;
+  --ink:#16202e; --muted:#566273;
   --amber:#f2b33d; --ok:#2e9e6b;
   --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
   --body:"Barlow",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
   --wrap:1120px;
+  --storm:
+    radial-gradient(ellipse 55% 60% at 12% 0%,rgba(6,10,20,.95),transparent 70%),
+    radial-gradient(ellipse 45% 50% at 48% 8%,rgba(14,22,38,.9),transparent 70%),
+    radial-gradient(ellipse 50% 55% at 88% 0%,rgba(8,12,24,.95),transparent 72%),
+    radial-gradient(ellipse 40% 35% at 30% 48%,rgba(64,78,102,.55),transparent 70%),
+    radial-gradient(ellipse 45% 30% at 74% 52%,rgba(76,90,114,.5),transparent 70%),
+    linear-gradient(180deg,#121a2a 0%,#22304a 45%,#45556f 80%,#6b778e 100%);
+  --dusk:linear-gradient(180deg,#18213f 0%,#463863 38%,#ad5c78 68%,#f0a26e 100%);
 }
 *{box-sizing:border-box}
-html{scroll-padding-top:84px}
-body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+html{scroll-padding-top:70px;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit}
 h1,h2,h3{font-family:var(--display);line-height:1.05;margin:0;text-wrap:balance}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
 :focus-visible{outline:3px solid var(--amber);outline-offset:2px}
 
-/* concept + status strips */
 .concept{background:#111;color:#e9e6dd;font-size:13px;text-align:center;padding:6px 16px;letter-spacing:.02em}
-.alertbar{background:var(--navy-3);color:#fff;font-size:14.5px;text-align:center;padding:8px 16px}
-.alertbar.active{background:var(--red)}
-.alertbar .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:8px;vertical-align:1px}
-.alertbar.active .dot{background:#fff}
-.alertbar a{font-weight:600}
 
-/* header */
-header{position:sticky;top:0;z-index:50;background:rgba(10,28,54,.97);backdrop-filter:blur(8px);color:#fff;border-bottom:3px solid var(--red)}
-.bar{display:flex;align-items:center;justify-content:space-between;height:68px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-.badge{width:44px;height:44px;flex:none}
-.brand b{font-family:var(--display);font-size:22px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;display:block;line-height:1}
-.brand span{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#b9c6da}
-nav ul{display:flex;gap:4px;list-style:none;margin:0;padding:0}
-nav a{display:block;padding:10px 14px;text-decoration:none;font-weight:500;font-size:15.5px;border-radius:6px;color:#dbe4f1}
-nav a:hover{background:rgba(255,255,255,.1);color:#fff}
-.menu-btn{display:none;background:none;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:6px;padding:8px 12px;font:600 14px var(--body)}
+/* masthead: dusk sky with skyline */
+.masthead{position:relative;background:var(--dusk);color:#fff;overflow:hidden}
+.masthead::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--navy) 0%,var(--navy) 38%,rgba(10,28,54,.55) 62%,rgba(10,28,54,0) 85%)}
+.masthead .sky{position:absolute;right:0;bottom:0;height:100%;width:min(60%,620px);fill:var(--night)}
+.mast{position:relative;display:flex;align-items:center;min-height:112px;padding-top:16px;padding-bottom:16px}
+.brand{display:flex;align-items:center;gap:18px;text-decoration:none}
+.badge{width:82px;height:90px;flex:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
+.brand b{font-family:var(--display);font-size:38px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;display:block;line-height:.95}
+.brand i{font-family:var(--display);font-style:normal;font-weight:600;font-size:19px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-top:3px}
+.brand span{font-size:12.5px;letter-spacing:.34em;text-transform:uppercase;color:#d5dcea;display:block;margin-top:6px;padding-top:6px;border-top:2px solid var(--red)}
+
+/* nav */
+header{position:sticky;top:0;z-index:50;background:var(--navy);color:#fff;border-bottom:1px solid rgba(255,255,255,.14);box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.bar{position:relative;display:flex;align-items:center;min-height:54px}
+nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+nav a{display:block;padding:16px 16px 13px;text-decoration:none;font-weight:600;font-size:15.5px;color:#dbe4f1;border-bottom:3px solid transparent}
+nav a:hover{color:#fff;background:rgba(255,255,255,.07)}
+nav a[aria-current=page]{color:#fff;border-bottom-color:var(--red)}
+.menu-btn{display:none;width:100%;background:none;border:0;color:#fff;padding:14px 0;font:600 16px var(--body);text-align:left;justify-content:space-between;align-items:center;cursor:pointer}
+.menu-btn svg{width:26px;height:26px}
 
 /* hero */
-.hero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;background:
-  repeating-linear-gradient(115deg,transparent 0 46px,rgba(255,255,255,.035) 46px 92px),
-  radial-gradient(900px 500px at 85% 10%,rgba(200,16,46,.35),transparent 65%)}
-.hero-grid{position:relative;display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:center;padding:76px 0 64px}
+.hero{background:var(--storm);color:#fff;position:relative;overflow:hidden}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:center;padding-top:72px;padding-bottom:60px}
 .eyebrow{font-family:var(--display);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:15px;color:var(--amber)}
-.hero h1{font-size:clamp(46px,7vw,84px);font-weight:700;text-transform:uppercase;letter-spacing:.005em;margin:12px 0 20px}
-.hero h1 em{font-style:normal;color:#fff;box-shadow:inset 0 -.18em 0 var(--red)}
-.hero p{color:#c9d4e5;max-width:56ch;margin:0 0 28px}
+.hero h1{font-size:clamp(44px,7vw,82px);font-weight:700;font-style:italic;letter-spacing:.005em;padding-left:22px;border-left:6px solid var(--red);text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.hero .tagline{font-size:clamp(19px,2.4vw,24px);font-style:italic;color:#fff;margin:16px 0 10px}
+.hero p{color:#d3dbe8;max-width:54ch;margin:0 0 28px}
 .btns{display:flex;gap:12px;flex-wrap:wrap}
-.btn{display:inline-block;padding:13px 22px;border-radius:8px;font-weight:600;text-decoration:none;font-size:16px;border:2px solid transparent;cursor:pointer;font-family:var(--body)}
-.btn.red{background:var(--red);color:#fff}.btn.red:hover{background:var(--red-dark)}
-.btn.ghost{border-color:rgba(255,255,255,.4);color:#fff}.btn.ghost:hover{background:rgba(255,255,255,.1)}
+.btn{display:inline-block;padding:13px 22px;border-radius:8px;font-weight:600;text-decoration:none;font-size:16px;border:2px solid transparent;cursor:pointer;font-family:var(--body);min-height:48px}
+.btn.red{background:var(--red);color:#fff;border-color:rgba(255,255,255,.55)}.btn.red:hover{background:var(--red-dark)}
+.btn.ghost{border-color:rgba(255,255,255,.7);color:#fff;background:rgba(7,13,24,.45)}.btn.ghost:hover{background:rgba(7,13,24,.7)}
 .btn.navy{background:var(--navy);color:#fff}.btn.navy:hover{background:var(--navy-3)}
 
-.status{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:26px}
-.status h2{font-size:15px;letter-spacing:.18em;text-transform:uppercase;color:#b9c6da;font-weight:600}
+.status{background:rgba(7,13,24,.62);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:26px;backdrop-filter:blur(6px)}
+.status h2{font-size:15px;letter-spacing:.18em;text-transform:uppercase;color:#c3cede;font-weight:600}
 .temp{font-family:var(--display);font-size:92px;font-weight:700;line-height:1;margin:10px 0 2px}
 .cond{font-size:18px;color:#e6ecf5;min-height:1.6em}
-.status hr{border:0;border-top:1px solid rgba(255,255,255,.16);margin:18px 0}
+.status hr{border:0;border-top:1px solid rgba(255,255,255,.18);margin:18px 0}
 .status-row{display:flex;justify-content:space-between;gap:12px;font-size:15px;color:#c9d4e5}
 .status-row b{color:#fff;font-weight:600;text-align:right}
 
-.phases{position:relative;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid rgba(255,255,255,.16)}
-.phases div{padding:18px 8px;text-align:center;font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:.14em;text-transform:uppercase;color:#dbe4f1;border-right:1px solid rgba(255,255,255,.16)}
+.phases-band{position:relative;background:rgba(7,13,24,.6)}
+.phases{display:grid;grid-template-columns:repeat(5,1fr)}
+.phases div{padding:16px 8px;text-align:center;font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:.14em;text-transform:uppercase;color:#e3eaf4;border-right:1px solid rgba(255,255,255,.16)}
 .phases div:last-child{border-right:0}
 .phases small{display:block;font-family:var(--body);font-size:12px;letter-spacing:.1em;color:var(--amber);margin-bottom:2px}
+
+/* emergency information bar */
+.alertbar{display:block;background:var(--red);color:#fff;text-decoration:none}
+.alertbar .wrap{display:flex;align-items:center;justify-content:center;gap:14px;padding-top:13px;padding-bottom:13px;flex-wrap:wrap;text-align:center}
+.alertbar svg{width:26px;height:26px;flex:none}
+.alertbar b{font-family:var(--display);font-size:23px;letter-spacing:.03em}
+.alertbar span{font-size:16px;border-left:2px solid rgba(255,255,255,.6);padding-left:14px}
+.alertbar:hover{background:var(--red-dark)}
 
 /* pages */
 main{min-height:70vh}
 .page{display:none}.page.active{display:block}
-.pagehead{background:var(--navy);color:#fff;padding:52px 0 44px;text-align:center;position:relative;overflow:hidden}
-.pagehead::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 46px,rgba(255,255,255,.035) 46px 92px),radial-gradient(700px 300px at 50% 0,rgba(200,16,46,.3),transparent 70%)}
-.pagehead .wrap{position:relative}
-.pagehead h1{font-size:clamp(44px,6vw,68px);font-weight:700;text-transform:uppercase}
-.pagehead p{margin:8px 0 0;color:#c9d4e5}
+.pagehead{background:var(--storm);color:#fff;padding:54px 0 46px;text-align:center}
+.pagehead h1{font-size:clamp(42px,6vw,68px);font-weight:700;font-style:italic;text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.pagehead h1::after{content:"";display:block;width:72px;height:5px;background:var(--red);margin:14px auto 0}
+.pagehead p{margin:12px 0 0;color:#dbe2ee}
 .page .head .eyebrow{display:none}
-nav a[aria-current=page]{background:var(--red);color:#fff}
 
 /* sections */
-section{padding:84px 0}
-.head{text-align:center;max-width:720px;margin:0 auto 44px}
-.head h2{font-size:clamp(36px,4.6vw,52px);font-weight:700;text-transform:uppercase;margin-top:8px}
-.head .eyebrow{color:var(--red)}
+section{padding:76px 0}
+.head{text-align:center;max-width:720px;margin:0 auto 40px}
+.head h2{font-size:clamp(34px,4.6vw,50px);font-weight:700;margin-top:8px}
+.head h2::after{content:"";display:block;width:56px;height:4px;background:var(--red);margin:12px auto 0}
 .head p{color:var(--muted);margin:14px 0 0}
 .alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 
 .grid{display:grid;gap:20px}
-.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;text-decoration:none;display:block}
+.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;text-decoration:none;display:block;box-shadow:0 1px 3px rgba(10,28,54,.06)}
 .alt .card{background:var(--paper)}
 a.card{transition:transform .15s,box-shadow .15s,border-color .15s}
-a.card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(10,28,54,.1);border-color:var(--navy-3)}
-.card h3{font-size:24px;font-weight:600;text-transform:uppercase;letter-spacing:.02em;margin-bottom:6px}
+a.card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(10,28,54,.12);border-color:var(--navy-3)}
+.card h3{font-size:24px;font-weight:700;letter-spacing:.01em;margin-bottom:6px;color:var(--navy)}
 .card p{margin:0;color:var(--muted);font-size:15.5px}
 .tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
-.go{display:inline-block;margin-top:14px;font-weight:600;font-size:15px;color:var(--navy-3)}
+.go{display:inline-block;margin-top:14px;font-weight:600;font-size:15px;color:#fff;background:var(--navy);padding:8px 16px;border-radius:6px}
+
+/* events */
+.events{display:grid;gap:14px;max-width:880px;margin:0 auto}
+.ev{display:grid;grid-template-columns:86px 1fr auto;gap:22px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 22px 16px 16px;box-shadow:0 1px 3px rgba(10,28,54,.06)}
+.ev-date{background:var(--navy);color:#fff;border-radius:10px;text-align:center;padding:10px 6px;font-family:var(--display);line-height:1}
+.ev-date small{display:block;font-size:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}
+.ev-date b{display:block;font-size:40px;font-weight:700;margin-top:2px}
+.ev h3{font-size:25px;font-weight:700;color:var(--navy)}
+.ev .meta{font-weight:600;font-size:15px;color:var(--ink);margin-top:3px}
+.ev p{margin:4px 0 0;color:var(--muted);font-size:15.5px}
+.pill{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-radius:999px;padding:6px 14px;background:var(--navy);color:#fff;white-space:nowrap}
+.pill.training{background:var(--red)}
+.ev-note{text-align:center;color:var(--muted);font-size:14px;margin:18px 0 0}
+.ev-empty{text-align:center;background:#fff;border:1px dashed #b9c0cc;border-radius:12px;padding:30px 20px;color:var(--muted)}
+
+/* mission */
+.mission{display:grid;grid-template-columns:1fr 1fr;gap:0;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(10,28,54,.06)}
+.mission .scene{position:relative;background:var(--dusk);min-height:300px}
+.mission .scene svg{position:absolute;left:0;right:0;bottom:0;width:100%;height:80%;fill:var(--night)}
+.mission .text{padding:44px;display:flex;flex-direction:column;justify-content:center}
+.mission h2{font-size:clamp(34px,4.6vw,48px);font-weight:700;font-style:italic;color:var(--navy);padding-left:16px;border-left:6px solid var(--red);margin-bottom:18px}
+.mission p{margin:0 0 14px}.mission p:last-child{margin:0;color:var(--muted)}
 
 /* about */
 .about{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
-.about h2{font-size:clamp(36px,4.6vw,52px);font-weight:700;text-transform:uppercase;margin:8px 0 18px}
+.about h2{font-size:clamp(34px,4.6vw,50px);font-weight:700;margin:8px 0 18px}
 .about p{margin:0 0 16px}
 .timeline{list-style:none;margin:0;padding:0;border-left:3px solid var(--red)}
 .timeline li{padding:0 0 26px 24px;position:relative}
 .timeline li:last-child{padding-bottom:0}
-.timeline li::before{content:"";position:absolute;left:-9px;top:6px;width:15px;height:15px;border-radius:50%;background:var(--paper);border:3px solid var(--red)}
-.timeline b{font-family:var(--display);font-size:24px;text-transform:uppercase;letter-spacing:.02em;display:block;line-height:1.15}
+.timeline li::before{content:"";position:absolute;left:-9px;top:6px;width:15px;height:15px;border-radius:50%;background:#fff;border:3px solid var(--red)}
+.timeline b{font-family:var(--display);font-size:24px;letter-spacing:.02em;display:block;line-height:1.15}
 .timeline span{color:var(--muted);font-size:15.5px}
 .partners{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
 .partners div{border:1px solid var(--line);border-radius:10px;padding:14px 10px;text-align:center;background:#fff}
@@ -122,73 +159,146 @@ a.card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(10,28,54,.1)
 
 /* members */
 .sub{font-family:var(--display);font-size:22px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;text-align:center;margin:44px 0 18px;color:var(--navy)}
-.sub:first-of-type{margin-top:0}
-.person{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sub:first-child{margin-top:0}
+.mgrid{display:flex;flex-wrap:wrap;justify-content:center;gap:20px}
+.person{flex:0 1 calc((100% - 40px)/3);background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.mgrid.c4 .person{flex-basis:calc((100% - 60px)/4)}
 .person .role{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--red);display:block}
 .person .name{font-weight:600;font-size:18px;line-height:1.3}
 .unit{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:.06em;background:var(--navy);color:#fff;border-radius:6px;padding:5px 10px;white-space:nowrap}
 .unit.call{background:#fff;color:var(--navy);border:1.5px solid var(--navy)}
 
 /* weather */
-.fc{background:var(--navy);color:#fff;border-radius:12px;padding:24px;text-align:center}
+.fc{background:var(--storm);color:#fff;border-radius:12px;padding:24px;text-align:center}
 .fc .when{font-family:var(--display);font-size:20px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:600}
 .fc .t{font-family:var(--display);font-size:64px;font-weight:700;line-height:1.1}
-.fc .d{color:#c9d4e5;font-size:15.5px;min-height:3.2em}
+.fc .d{color:#e3e9f2;font-size:15.5px;min-height:3.2em}
 .wx-note{text-align:center;color:var(--muted);font-size:14px;margin:16px 0 28px}
 
 /* contact */
 .contact{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
 form.card{padding:30px}
 label{display:block;font-weight:600;font-size:14.5px;margin:0 0 6px}
-input[type=text],input[type=email],textarea{width:100%;padding:12px 14px;border:1.5px solid #c9c4b7;border-radius:8px;font:inherit;background:#fff;margin-bottom:16px}
+input[type=text],input[type=email],textarea{width:100%;padding:12px 14px;border:1.5px solid #bcc3ce;border-radius:8px;font:inherit;font-size:16px;background:#fff;margin-bottom:16px}
 input:focus,textarea:focus{outline:none;border-color:var(--navy-3);box-shadow:0 0 0 3px rgba(28,58,102,.18)}
 textarea{min-height:130px;resize:vertical}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .check{display:flex;gap:10px;align-items:center;font-weight:400;font-size:15px;margin-bottom:18px}
+.check input{width:20px;height:20px}
 .formnote{display:none;margin-top:14px;font-size:14.5px;color:var(--navy-3);font-weight:600}
 .loc{display:flex;flex-direction:column;padding:0;overflow:hidden}
-.loc iframe{width:100%;flex:1;min-height:250px;border:0;background:#e6e2d8}
+.loc iframe{width:100%;flex:1;min-height:250px;border:0;background:#e3e6eb}
 .loc-info{padding:24px 30px}
-.loc-info h3{font-size:26px;text-transform:uppercase;font-weight:600}
+.loc-info h3{font-size:26px}
 .loc-info p{margin:6px 0 0;color:var(--muted)}
 .loc-info .phone{font-family:var(--display);font-size:34px;font-weight:700;color:var(--navy);text-decoration:none;display:inline-block;margin-top:8px}
 .e911{background:var(--red);color:#fff;text-align:center;padding:12px 16px;font-weight:600}
 
-footer{background:var(--navy);color:#b9c6da;padding:44px 0;text-align:center;font-size:14.5px}
-footer .fl{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 22px;margin:0 0 16px;padding:0;list-style:none}
+footer{background:var(--navy);color:#b9c6da;padding:40px 0;text-align:center;font-size:14.5px;border-top:4px solid var(--red)}
+footer .fl{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 8px;margin:0 0 14px;padding:0;list-style:none}
+footer .fl a{display:block;padding:8px 10px}
 footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underline}
 
+/* tablet */
 @media (max-width:900px){
-  .hero-grid,.about,.contact{grid-template-columns:1fr}
+  .hero-grid,.about,.contact,.mission{grid-template-columns:1fr}
+  .hero-grid{gap:32px;padding-top:52px;padding-bottom:44px}
   .g4{grid-template-columns:repeat(2,1fr)}
   .g3{grid-template-columns:1fr}
-  .menu-btn{display:block}
-  nav{display:none;position:absolute;left:0;right:0;top:68px;background:var(--navy);border-bottom:3px solid var(--red);padding:8px 16px 16px}
-  nav.open{display:block}nav ul{flex-direction:column}
-  section{padding:60px 0}
+  .person,.mgrid.c4 .person{flex-basis:calc((100% - 20px)/2)}
+  .menu-btn{display:flex}
+  nav{display:none;position:absolute;left:-24px;right:-24px;top:100%;background:var(--navy);border-top:1px solid rgba(255,255,255,.14);box-shadow:0 12px 24px rgba(0,0,0,.35);padding:6px 24px 14px}
+  nav.open{display:block}nav ul{flex-direction:column;gap:0}
+  nav a{padding:14px 12px;border-bottom:0;border-left:4px solid transparent;font-size:17px}
+  nav a[aria-current=page]{border-left-color:var(--red);background:rgba(255,255,255,.07)}
+  section{padding:56px 0}
+  .mission .scene{min-height:200px}
+  .mission .text{padding:32px 26px}
 }
+/* phone */
 @media (max-width:600px){
-  .phases{grid-template-columns:1fr}
-  .phases div{border-right:0;border-bottom:1px solid rgba(255,255,255,.16);padding:12px}
-  .g4,.g2,.row2,.partners{grid-template-columns:1fr}
+  body{font-size:16.5px}
+  .wrap{padding:0 18px}
+  nav{left:-18px;right:-18px;padding:6px 18px 14px}
+  .concept{font-size:12px}
+  .mast{min-height:0;padding-top:14px;padding-bottom:14px}
+  .masthead::before{background:linear-gradient(90deg,var(--navy) 0%,rgba(10,28,54,.86) 55%,rgba(10,28,54,.45) 100%)}
+  .masthead .sky{width:70%;opacity:.9}
+  .brand{gap:12px}
+  .badge{width:54px;height:60px}
+  .brand b{font-size:26px}
+  .brand i{font-size:13.5px;letter-spacing:.04em}
+  .brand span{font-size:10.5px;letter-spacing:.26em;margin-top:5px;padding-top:5px}
+  .hero-grid{padding-top:40px;padding-bottom:34px}
+  .hero h1{padding-left:14px;border-left-width:5px}
+  .btns .btn{flex:1 1 100%;text-align:center}
+  .status{padding:20px}
   .temp{font-size:72px}
+  .phases{display:flex;flex-wrap:wrap;justify-content:center;padding:10px 0}
+  .phases div{border:0;padding:5px 9px;font-size:15px;letter-spacing:.1em}
+  .phases small{display:none}
+  .alertbar .wrap{flex-direction:column;gap:4px}
+  .alertbar svg{display:none}
+  .alertbar span{border:0;padding:0;font-size:15px}
+  section{padding:46px 0}
+  .head{margin-bottom:28px}
+  .g4,.row2,.partners{grid-template-columns:1fr}
+  .person,.mgrid.c4 .person{flex-basis:100%}
+  .mgrid{gap:12px}
+  .card{padding:20px}
+  .ev{grid-template-columns:66px 1fr;gap:14px;padding:14px;align-items:start}
+  .ev-date b{font-size:32px}.ev-date small{font-size:14px}
+  .ev h3{font-size:22px}
+  .ev .pill{grid-column:2;justify-self:start}
+  form.card{padding:22px}
+  .loc-info{padding:20px 22px}
+  .pagehead{padding:38px 0 32px}
+  .sub{margin:34px 0 14px;font-size:20px}
 }
 @media (prefers-reduced-motion:reduce){a.card{transition:none}}
 </style>
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="skyline" viewBox="0 0 600 200" preserveAspectRatio="xMaxYMax slice">
+    <path d="M0 200V178q15-14 30-4q10-16 28-6q14-12 30 0q16-18 36-4q12-10 26 0q18-14 34 2q14-10 28 0q20-16 40-2q14-8 26 2q16-12 32 0q14-10 28 0q18-14 36 0q14-10 28 2q16-12 32 0q14-8 26 2q16-10 30 0q14-8 26 4q8-6 12 0H600V200z"/>
+    <path d="M196 180v-28l22-14 22 14v28z"/>
+    <rect x="296" y="108" width="26" height="76"/><path d="M296 108a13 13 0 0 1 26 0z"/>
+    <rect x="328" y="92" width="32" height="92"/><path d="M328 92a16 16 0 0 1 32 0z"/>
+    <rect x="473" y="38" width="4" height="12"/>
+    <path d="M438 70q0-23 37-23t37 23v22q0 10-37 15q-37-5-37-15z"/>
+    <path d="M446 98l-11 88h5l12-88zM504 98l11 88h-5l-12-88z"/><rect x="471" y="100" width="8" height="86"/>
+    <path d="M441 140h68v3h-68zM438 164h74v3h-74z"/>
+  </symbol>
+</svg>
+
 <div class="concept">Redesign concept for review. Not the official Wayne County EMA website.</div>
-<div class="alertbar" id="alertbar" hidden></div>
+
+<div class="masthead">
+  <svg class="sky" aria-hidden="true"><use href="#skyline"/></svg>
+  <div class="wrap mast">
+    <a class="brand" href="#home" aria-label="Wayne County EMA home">
+      <!-- Shield mark based on the mockup; swap for the agency's official seal if preferred -->
+      <svg class="badge" viewBox="0 0 120 132" aria-hidden="true">
+        <path d="M60 3 114 15v48c0 35-25 57-54 67C31 120 6 98 6 63V15z" fill="#fff"/>
+        <path d="M60 9 108 20v43c0 31-22 51-48 60-26-9-48-29-48-60V20z" fill="#0a1c36" stroke="#c8102e" stroke-width="3"/>
+        <path id="shArc" d="M18 41Q60 22 102 41" fill="none"/>
+        <text font-family="Barlow Condensed,Arial Narrow,Arial,sans-serif" font-weight="700" font-size="11" fill="#fff" text-anchor="middle"><textPath href="#shArc" startOffset="50%" textLength="74" lengthAdjust="spacingAndGlyphs">WAYNE COUNTY</textPath></text>
+        <text x="60" y="68" font-family="Barlow Condensed,Arial Narrow,Arial,sans-serif" font-weight="700" font-size="36" fill="#fff" text-anchor="middle" letter-spacing="1">EMA</text>
+        <path d="M27 74q-1 22 22 37" fill="none" stroke="#c8102e" stroke-width="5" stroke-dasharray="6 3" stroke-linecap="round"/>
+        <path d="M93 74q1 22-22 37" fill="none" stroke="#c8102e" stroke-width="5" stroke-dasharray="6 3" stroke-linecap="round"/>
+        <path d="M50 75h17l3 4v15l-2 8-4 7-4 7-4-6-4-4-4-8-1-8 3-8z" fill="#fff"/>
+        <path d="M63 97l1.1 2.6 2.8.2-2.1 1.8.7 2.7-2.5-1.5-2.5 1.5.7-2.7-2.1-1.8 2.8-.2z" fill="#c8102e"/>
+      </svg>
+      <div><b>Wayne County</b><i>Emergency Management Agency</i><span>Fairfield, Illinois</span></div>
+    </a>
+  </div>
+</div>
 
 <header>
   <div class="wrap bar">
-    <a class="brand" href="#home" aria-label="Wayne County EMA home">
-      <!-- Placeholder mark: swap for the agency's official seal -->
-      <svg class="badge" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21" fill="#c8102e"/><circle cx="22" cy="22" r="16.5" fill="#0a1c36" stroke="#fff" stroke-width="1.5"/><path d="M22 11l2.6 7.2h7.6l-6.1 4.6 2.3 7.4-6.4-4.5-6.4 4.5 2.3-7.4-6.1-4.6h7.6z" fill="#fff"/></svg>
-      <div><b>Wayne County EMA</b><span>Fairfield, Illinois</span></div>
-    </a>
-    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav"><span id="menuLabel">Home</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     <nav id="nav" aria-label="Main">
       <ul>
         <li><a href="#home">Home</a></li>
@@ -207,9 +317,9 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
 <div class="hero">
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow">Wayne County Emergency Management Agency</div>
-      <h1>Protection through <em>preparedness</em></h1>
-      <p>We protect Wayne County by preparing for, responding to, and helping the community recover from emergencies and disasters, whether natural, man-made, technological, or acts of terrorism.</p>
+      <h1>Protection Through Preparedness</h1>
+      <div class="tagline">Preparing Wayne County for whatever comes next.</div>
+      <p>We prepare for, respond to, and assist with recovery from emergencies and disasters, whether natural, man-made, or technological.</p>
       <div class="btns">
         <a class="btn red" href="#preparedness">Get prepared</a>
         <a class="btn ghost" href="#contact">Contact the office</a>
@@ -225,7 +335,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
       <div class="status-row"><span>Office</span><b><a href="tel:+16188423884" style="text-decoration:none">(618) 842-3884</a></b></div>
     </aside>
   </div>
-  <div class="wrap">
+  <div class="phases-band"><div class="wrap">
     <div class="phases">
       <div><small>01</small>Prevention</div>
       <div><small>02</small>Mitigation</div>
@@ -233,15 +343,44 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
       <div><small>04</small>Response</div>
       <div><small>05</small>Recovery</div>
     </div>
-  </div>
+  </div></div>
 </div>
+
+<a class="alertbar" href="#weather" id="alertbar">
+  <div class="wrap">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 1.5 21h21zM11 9.5h2v6h-2zm0 7.5h2v2h-2z"/></svg>
+    <b>Emergency Information</b>
+    <span id="alertText">Check local alerts and weather updates for Wayne County</span>
+  </div>
+</a>
+
+<section>
+  <div class="wrap">
+    <div class="head"><h2>Events &amp; Trainings</h2><p>Upcoming classes, meetings, and community events.</p></div>
+    <div class="events" id="events"></div>
+    <p class="ev-note" id="evNote" hidden></p>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="mission">
+      <div class="scene" aria-hidden="true"><svg><use href="#skyline"/></svg></div>
+      <div class="text">
+        <h2>Our Mission</h2>
+        <p>Wayne County EMA's mission is to protect the County through integrated approaches of Emergency Management principles and Homeland Security initiatives to prepare for, respond to, mitigate against, and recover from emergencies and disasters, or acts of terrorism.</p>
+        <p>Disaster prevention, mitigation, preparedness, response, and recovery.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section>
   <div class="wrap grid g4">
-    <a class="card" href="https://www.dhs.gov/national-terrorism-advisory-system" target="_blank" rel="noopener"><span class="tag">Homeland Security</span><h3>NTAS advisories</h3><p>National Terrorism Advisory System bulletins and alerts.</p><span class="go">View advisories →</span></a>
-    <a class="card" href="https://www.weather.gov/pah/" target="_blank" rel="noopener"><span class="tag">NWS Paducah</span><h3>Skywarn spotters</h3><p>Train as a volunteer severe weather spotter.</p><span class="go">Spotter program →</span></a>
-    <a class="card" href="#weather"><span class="tag">Local data</span><h3>Weather station</h3><p>Live readings from the WCEMA station in Fairfield.</p><span class="go">See conditions →</span></a>
-    <a class="card" href="#" data-placeholder><span class="tag">Stay connected</span><h3>Facebook</h3><p>Follow us for updates during severe weather and events.</p><span class="go">Follow us →</span></a>
+    <a class="card" href="https://www.dhs.gov/national-terrorism-advisory-system" target="_blank" rel="noopener"><span class="tag">Homeland Security</span><h3>NTAS advisories</h3><p>National Terrorism Advisory System bulletins and alerts.</p><span class="go">View advisories ›</span></a>
+    <a class="card" href="https://www.weather.gov/pah/" target="_blank" rel="noopener"><span class="tag">NWS Paducah</span><h3>Skywarn spotters</h3><p>Train as a volunteer severe weather spotter.</p><span class="go">Spotter program ›</span></a>
+    <a class="card" href="#weather"><span class="tag">Local data</span><h3>Weather station</h3><p>Live readings from the WCEMA station in Fairfield.</p><span class="go">See conditions ›</span></a>
+    <a class="card" href="#" data-placeholder><span class="tag">Stay connected</span><h3>Facebook</h3><p>Follow us for updates during severe weather and events.</p><span class="go">Follow us ›</span></a>
   </div>
 </section>
 </div>
@@ -277,14 +416,14 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
 <div class="pagehead"><div class="wrap"><h1>Preparedness</h1><p>Guides and resources to get your household ready</p></div></div>
 <section>
   <div class="wrap">
-    <div class="head"><div class="eyebrow">Preparedness</div><h2>Be ready before it happens</h2><p>Guides for the hazards most likely to affect Wayne County. Download one, make a plan, and build a kit.</p></div>
+    <div class="head"><h2>Be ready before it happens</h2><p>Guides for the hazards most likely to affect Wayne County. Download one, make a plan, and build a kit.</p></div>
     <div class="grid g3">
-      <a class="card" href="https://www.ready.gov" target="_blank" rel="noopener"><span class="tag">Start here</span><h3>Ready.gov</h3><p>Plans, kits, and checklists for every kind of emergency.</p><span class="go">Visit Ready.gov →</span></a>
-      <a class="card" href="#" data-placeholder><span class="tag">Severe weather</span><h3>Severe weather preparedness</h3><p>Illinois guide to sirens, shelters, and weather radios.</p><span class="go">Open guide →</span></a>
-      <a class="card" href="#" data-placeholder><span class="tag">Severe weather</span><h3>Thunderstorms, tornadoes, lightning</h3><p>What to do before, during, and after a storm.</p><span class="go">Open guide →</span></a>
-      <a class="card" href="#" data-placeholder><span class="tag">Earthquake</span><h3>Yes you can survive an earthquake</h3><p>Safety and survival tips for the Central U.S.</p><span class="go">Open guide →</span></a>
-      <a class="card" href="#" data-placeholder><span class="tag">Earthquake</span><h3>Central U.S. earthquake guide</h3><p>Understanding the risk and staying safe at home.</p><span class="go">Open guide →</span></a>
-      <a class="card" href="#" data-placeholder><span class="tag">Earthquake</span><h3>Mobile home owners</h3><p>Earthquake preparedness for Central U.S. mobile homes.</p><span class="go">Open guide →</span></a>
+      <a class="card" href="https://www.ready.gov" target="_blank" rel="noopener"><span class="tag">Start here</span><h3>Ready.gov</h3><p>Plans, kits, and checklists for every kind of emergency.</p><span class="go">Visit Ready.gov ›</span></a>
+      <a class="card" href="#" data-placeholder><span class="tag">Severe weather</span><h3>Severe weather preparedness</h3><p>Illinois guide to sirens, shelters, and weather radios.</p><span class="go">Open guide ›</span></a>
+      <a class="card" href="#" data-placeholder><span class="tag">Severe weather</span><h3>Thunderstorms, tornadoes, lightning</h3><p>What to do before, during, and after a storm.</p><span class="go">Open guide ›</span></a>
+      <a class="card" href="#" data-placeholder><span class="tag">Earthquake</span><h3>Yes you can survive an earthquake</h3><p>Safety and survival tips for the Central U.S.</p><span class="go">Open guide ›</span></a>
+      <a class="card" href="#" data-placeholder><span class="tag">Earthquake</span><h3>Central U.S. earthquake guide</h3><p>Understanding the risk and staying safe at home.</p><span class="go">Open guide ›</span></a>
+      <a class="card" href="#" data-placeholder><span class="tag">Earthquake</span><h3>Mobile home owners</h3><p>Earthquake preparedness for Central U.S. mobile homes.</p><span class="go">Open guide ›</span></a>
     </div>
   </div>
 </section>
@@ -294,49 +433,8 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
 <div class="pagehead"><div class="wrap"><h1>Members</h1><p>Staff, officers, specialists, and radio operators</p></div></div>
 <section class="alt">
   <div class="wrap">
-    <div class="head"><div class="eyebrow">Members</div><h2>The people behind the agency</h2><p>Staff, officers, and volunteers, listed with their unit numbers.</p></div>
-
-    <h3 class="sub">Leadership</h3>
-    <div class="grid g3">
-      <div class="person"><div><span class="role">Director</span><span class="name">Jeff Jake</span></div><span class="unit">EM1</span></div>
-      <div class="person"><div><span class="role">Deputy Director</span><span class="name">Blaine Norton</span></div><span class="unit">EM2</span></div>
-      <div class="person"><div><span class="role">Deputy Director</span><span class="name">Chris Walters</span></div><span class="unit">EM3</span></div>
-      <div class="person"><div><span class="role">Director of Operations</span><span class="name">Darren Kenshalo</span></div><span class="unit">EM4</span></div>
-      <div class="person"><div><span class="role">Operations Manager</span><span class="name">Kelby Penrod</span></div><span class="unit">EM5</span></div>
-      <div class="person"><div><span class="role">Administrative Assistant</span><span class="name">Heather Jake</span></div><span class="unit">EM10</span></div>
-    </div>
-
-    <h3 class="sub">Officers</h3>
-    <div class="grid g3">
-      <div class="person"><div><span class="role">Sergeant</span><span class="name">Stuart Morse</span></div><span class="unit">EM15</span></div>
-      <div class="person"><div><span class="role">Officer</span><span class="name">Taylor Cooper</span></div><span class="unit">EM19</span></div>
-      <div class="person"><div><span class="role">Officer</span><span class="name">Katelyn Norton</span></div><span class="unit">EM20</span></div>
-      <div class="person"><div><span class="role">Officer</span><span class="name">Josh Simpson</span></div><span class="unit">EM23</span></div>
-      <div class="person"><div><span class="role">Officer</span><span class="name">Lucas Sweat</span></div><span class="unit">EM27</span></div>
-      <div class="person"><div><span class="role">Officer</span><span class="name">Dale Dye</span></div><span class="unit">EM28</span></div>
-      <div class="person"><div><span class="role">Officer</span><span class="name">Conner Peach</span></div><span class="unit">EM29</span></div>
-      <div class="person"><div><span class="role">Officer</span><span class="name">Caleb Norton</span></div><span class="unit">EM31</span></div>
-      <div class="person"><div><span class="role">Officer</span><span class="name">Kirstan Penrod</span></div><span class="unit">EM32</span></div>
-    </div>
-
-    <h3 class="sub">Specialists</h3>
-    <div class="grid g3">
-      <div class="person"><div><span class="role">Spanish Translation</span><span class="name">Danny Zaragoza</span></div><span class="unit">EM45</span></div>
-      <div class="person"><div><span class="role">Storm Damage Assessment</span><span class="name">Cheri Norton</span></div><span class="unit">EM41</span></div>
-      <div class="person"><div><span class="role">Chaplain</span><span class="name">Zachary Norton</span></div><span class="unit">EM46</span></div>
-    </div>
-
-    <h3 class="sub">Ham Radio Operations</h3>
-    <div class="grid g4">
-      <div class="person"><div><span class="role">Operator</span><span class="name">Jeff Jake</span></div><span class="unit call">KB9RQV</span></div>
-      <div class="person"><div><span class="role">Operator</span><span class="name">Tom Windland</span></div><span class="unit call">KB9RQW</span></div>
-      <div class="person"><div><span class="role">Operator</span><span class="name">Chris Walters</span></div><span class="unit call">KC9QBV</span></div>
-      <div class="person"><div><span class="role">Operator</span><span class="name">Stuart Morse</span></div><span class="unit call">KD9KQR</span></div>
-      <div class="person"><div><span class="role">Operator</span><span class="name">Blaine Norton</span></div><span class="unit call">KD9WHV</span></div>
-      <div class="person"><div><span class="role">Operator</span><span class="name">Darren Kenshalo</span></div><span class="unit call">KD9ZUO</span></div>
-      <div class="person"><div><span class="role">Operator</span><span class="name">Conner Peach</span></div><span class="unit call">KE9DOX</span></div>
-      <div class="person"><div><span class="role">RACES Coordinator</span><span class="name">Chris Walters</span></div><span class="unit">EM3</span></div>
-    </div>
+    <div class="head"><h2>The people behind the agency</h2><p>Staff, officers, and volunteers, listed with their unit numbers.</p></div>
+    <div id="membersList"></div>
   </div>
 </section>
 </div>
@@ -345,7 +443,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
 <div class="pagehead"><div class="wrap"><h1>Weather</h1><p>Live conditions and forecast for Fairfield, Illinois</p></div></div>
 <section>
   <div class="wrap">
-    <div class="head"><div class="eyebrow">Weather</div><h2>Fairfield forecast</h2><p>Pulled live from the National Weather Service for Wayne County, not a neighboring city.</p></div>
+    <div class="head"><h2>Fairfield forecast</h2><p>Pulled live from the National Weather Service for Wayne County, not a neighboring city.</p></div>
     <div class="grid g3" id="forecast">
       <div class="fc"><div class="when">Today</div><div class="t">--°</div><div class="d">Loading…</div></div>
       <div class="fc"><div class="when">Tonight</div><div class="t">--°</div><div class="d">Loading…</div></div>
@@ -353,9 +451,9 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
     </div>
     <p class="wx-note" id="wxNote">Source: National Weather Service, Paducah, KY.</p>
     <div class="grid g3">
-      <a class="card" href="#" data-placeholder><span class="tag">Local data</span><h3>WCEMA weather station</h3><p>Temperature, dew point, wind, and rain from our own station.</p><span class="go">Open station →</span></a>
-      <a class="card" href="https://radar.weather.gov/" target="_blank" rel="noopener"><span class="tag">Radar</span><h3>Live radar</h3><p>National Weather Service radar for the region.</p><span class="go">Open radar →</span></a>
-      <a class="card" href="https://www.weather.gov/pah/" target="_blank" rel="noopener"><span class="tag">Forecast office</span><h3>NWS Paducah</h3><p>Watches, warnings, and forecast discussions.</p><span class="go">Visit NWS →</span></a>
+      <a class="card" href="#" data-placeholder><span class="tag">Local data</span><h3>WCEMA weather station</h3><p>Temperature, dew point, wind, and rain from our own station.</p><span class="go">Open station ›</span></a>
+      <a class="card" href="https://radar.weather.gov/" target="_blank" rel="noopener"><span class="tag">Radar</span><h3>Live radar</h3><p>National Weather Service radar for the region.</p><span class="go">Open radar ›</span></a>
+      <a class="card" href="https://www.weather.gov/pah/" target="_blank" rel="noopener"><span class="tag">Forecast office</span><h3>NWS Paducah</h3><p>Watches, warnings, and forecast discussions.</p><span class="go">Visit NWS ›</span></a>
     </div>
   </div>
 </section>
@@ -365,7 +463,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
 <div class="pagehead"><div class="wrap"><h1>Contact Us</h1><p>Reach the Wayne County EMA office</p></div></div>
 <section>
   <div class="wrap">
-    <div class="head"><div class="eyebrow">Contact</div><h2>Get in touch</h2><p>Questions about preparedness, volunteering, or the agency? Send us a message.</p></div>
+    <div class="head"><h2>Get in touch</h2><p>Questions about preparedness, volunteering, or the agency? Send us a message.</p></div>
     <div class="contact">
       <form class="card" id="contactForm" novalidate>
         <div class="row2">
@@ -404,6 +502,16 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
 </footer>
 
 <script>
+/* ============================================================
+   GOOGLE SHEET HOOKUP
+   Paste the Sheet's ID between the quotes below. The ID is the
+   long code in the Sheet's web address, between /d/ and /edit.
+   The Sheet needs two tabs named exactly: Events and Members.
+   Share it as "Anyone with the link: Viewer".
+   Leave it blank to use the built-in lists further down.
+   ============================================================ */
+var SHEET_ID = '';
+
 (function(){
   var btn=document.getElementById('menuBtn'),nav=document.getElementById('nav');
   btn.addEventListener('click',function(){var o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o);});
@@ -412,10 +520,11 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
   // Page switching: each tab is its own page
   var pages=[].slice.call(document.querySelectorAll('.page'));
   function show(id){
-    if(!document.getElementById(id)||pages.every(function(p){return p.id!==id;}))id='home';
+    if(pages.every(function(p){return p.id!==id;}))id='home';
     pages.forEach(function(p){p.classList.toggle('active',p.id===id);});
     document.querySelectorAll('nav a').forEach(function(a){
-      if(a.getAttribute('href')==='#'+id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
+      if(a.getAttribute('href')==='#'+id){a.setAttribute('aria-current','page');document.getElementById('menuLabel').textContent=a.textContent;}
+      else a.removeAttribute('aria-current');
     });
     window.scrollTo(0,0);
   }
@@ -424,18 +533,103 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
     if(!a||a.hasAttribute('data-placeholder'))return;
     var id=a.getAttribute('href').slice(1);if(!id)return;
     e.preventDefault();show(id);
-    try{history.pushState(null,'','#'+id);}catch(err){}
+    try{location.hash=id;}catch(err){}
   });
-  window.addEventListener('popstate',function(){show(location.hash.slice(1)||'home');});
+  window.addEventListener('hashchange',function(){show(location.hash.slice(1)||'home');});
   show(location.hash.slice(1)||'home');
 
   document.getElementById('contactForm').addEventListener('submit',function(e){e.preventDefault();document.getElementById('formNote').style.display='block';});
   document.querySelectorAll('[data-placeholder]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();});a.title='Link to be added';});
 
-  // Live National Weather Service data for Fairfield, IL
-  var LAT=38.3789,LON=-88.3598,H={headers:{Accept:'application/geo+json'}};
-  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+  function esc(s){var d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML;}
 
+  /* ---------- Google Sheet loader ---------- */
+  function parseCSV(t){
+    var rows=[],row=[],c='',q=false;
+    for(var i=0;i<t.length;i++){var ch=t[i];
+      if(q){if(ch==='"'){if(t[i+1]==='"'){c+='"';i++;}else q=false;}else c+=ch;}
+      else if(ch==='"')q=true;
+      else if(ch===','){row.push(c);c='';}
+      else if(ch==='\n'){row.push(c);rows.push(row);row=[];c='';}
+      else if(ch!=='\r')c+=ch;}
+    if(c!==''||row.length){row.push(c);rows.push(row);}
+    return rows;
+  }
+  function loadTab(tab){
+    if(!SHEET_ID)return Promise.reject(new Error('no sheet'));
+    var url='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:csv&headers=1&sheet='+encodeURIComponent(tab);
+    return fetch(url).then(function(r){if(!r.ok)throw new Error('sheet');return r.text();}).then(function(t){
+      var rows=parseCSV(t);if(rows.length<1)throw new Error('empty');
+      var head=rows[0].map(function(h){return h.trim().toLowerCase();});
+      return rows.slice(1).map(function(r){var o={};head.forEach(function(h,i){o[h]=(r[i]||'').trim();});return o;})
+        .filter(function(o){return Object.keys(o).some(function(k){return o[k];});});
+    });
+  }
+
+  /* ---------- Events & Trainings ---------- */
+  var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function parseDate(s){
+    s=(s||'').trim();var m;
+    if((m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/)))return new Date(+m[3]<100?2000+(+m[3]):+m[3],m[1]-1,+m[2]);
+    if((m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/)))return new Date(+m[1],m[2]-1,+m[3]);
+    var d=new Date(s);return isNaN(d)?null:d;
+  }
+  function sampleEvents(){
+    function plus(n){var d=new Date();d.setDate(d.getDate()+n);return (d.getMonth()+1)+'/'+d.getDate()+'/'+d.getFullYear();}
+    return [
+      {date:plus(7),title:'Skywarn Spotter Training',type:'Training',time:'6:00 PM',location:'EMA Office, 505 SW 10th St.',details:'Sample entry. Free class for new and returning weather spotters.'},
+      {date:plus(21),title:'Monthly Members Meeting',type:'Event',time:'7:00 PM',location:'EMA Office',details:'Sample entry. Regular meeting for all members.'},
+      {date:plus(35),title:'CPR and First Aid Class',type:'Training',time:'9:00 AM',location:'EMA Office',details:'Sample entry. Hands-on certification class.'}
+    ];
+  }
+  function renderEvents(list,isSample){
+    var today=new Date();today.setHours(0,0,0,0);
+    var items=list.map(function(e){e._d=parseDate(e.date);return e;})
+      .filter(function(e){return e.title&&(!e._d||e._d>=today);})
+      .sort(function(a,b){return (a._d?a._d.getTime():Infinity)-(b._d?b._d.getTime():Infinity);})
+      .slice(0,6);
+    var box=document.getElementById('events'),note=document.getElementById('evNote');
+    if(!items.length){box.innerHTML='<div class="ev-empty">No upcoming events or trainings are scheduled right now. Check back soon.</div>';}
+    else box.innerHTML=items.map(function(e){
+      var meta=[e._d?e._d.toLocaleDateString('en-US',{weekday:'long'}):'',e.time,e.location].filter(Boolean).join(' · ');
+      var training=/train|class|course/i.test(e.type||'');
+      return '<article class="ev"><div class="ev-date"><small>'+(e._d?MONTHS[e._d.getMonth()]:'TBA')+'</small><b>'+(e._d?e._d.getDate():'--')+'</b></div>'+
+        '<div><h3>'+esc(e.title)+'</h3>'+(meta?'<div class="meta">'+esc(meta)+'</div>':'')+(e.details?'<p>'+esc(e.details)+'</p>':'')+'</div>'+
+        (e.type?'<span class="pill'+(training?' training':'')+'">'+esc(e.type)+'</span>':'')+'</article>';
+    }).join('');
+    note.hidden=!isSample;
+    if(isSample)note.textContent='These are sample entries. Real events will come from the Google Sheet.';
+  }
+  loadTab('Events').then(function(r){renderEvents(r,false);}).catch(function(){renderEvents(sampleEvents(),true);});
+
+  /* ---------- Members ---------- */
+  var DEFAULT_MEMBERS=[
+    ['Leadership','Director','Jeff Jake','EM1'],['Leadership','Deputy Director','Blaine Norton','EM2'],['Leadership','Deputy Director','Chris Walters','EM3'],
+    ['Leadership','Director of Operations','Darren Kenshalo','EM4'],['Leadership','Operations Manager','Kelby Penrod','EM5'],['Leadership','Administrative Assistant','Heather Jake','EM10'],
+    ['Officers','Sergeant','Stuart Morse','EM15'],['Officers','Officer','Taylor Cooper','EM19'],['Officers','Officer','Katelyn Norton','EM20'],
+    ['Officers','Officer','Josh Simpson','EM23'],['Officers','Officer','Lucas Sweat','EM27'],['Officers','Officer','Dale Dye','EM28'],
+    ['Officers','Officer','Conner Peach','EM29'],['Officers','Officer','Caleb Norton','EM31'],['Officers','Officer','Kirstan Penrod','EM32'],
+    ['Specialists','Spanish Translation','Danny Zaragoza','EM45'],['Specialists','Storm Damage Assessment','Cheri Norton','EM41'],['Specialists','Chaplain','Zachary Norton','EM46'],
+    ['Ham Radio Operations','Operator','Jeff Jake','KB9RQV'],['Ham Radio Operations','Operator','Tom Windland','KB9RQW'],['Ham Radio Operations','Operator','Chris Walters','KC9QBV'],
+    ['Ham Radio Operations','Operator','Stuart Morse','KD9KQR'],['Ham Radio Operations','Operator','Blaine Norton','KD9WHV'],['Ham Radio Operations','Operator','Darren Kenshalo','KD9ZUO'],
+    ['Ham Radio Operations','Operator','Conner Peach','KE9DOX'],['Ham Radio Operations','RACES Coordinator','Chris Walters','EM3']
+  ].map(function(m){return {group:m[0],role:m[1],name:m[2],unit:m[3]};});
+  function renderMembers(list){
+    var order=[],groups={};
+    list.forEach(function(m){if(!m.name)return;var g=m.group||'Members';if(!groups[g]){groups[g]=[];order.push(g);}groups[g].push(m);});
+    document.getElementById('membersList').innerHTML=order.map(function(g){
+      var n=groups[g].length,c4=(n%4===0&&n%3!==0);
+      return '<h3 class="sub">'+esc(g)+'</h3><div class="mgrid'+(c4?' c4':'')+'">'+groups[g].map(function(m){
+        var call=m.unit&&!/^EM\s*\d/i.test(m.unit);
+        return '<div class="person"><div><span class="role">'+esc(m.role)+'</span><span class="name">'+esc(m.name)+'</span></div>'+(m.unit?'<span class="unit'+(call?' call':'')+'">'+esc(m.unit)+'</span>':'')+'</div>';
+      }).join('')+'</div>';
+    }).join('');
+  }
+  renderMembers(DEFAULT_MEMBERS);
+  loadTab('Members').then(function(r){if(r.length)renderMembers(r);}).catch(function(){});
+
+  /* ---------- Live National Weather Service data for Fairfield, IL ---------- */
+  var LAT=38.3789,LON=-88.3598,H={headers:{Accept:'application/geo+json'}};
   fetch('https://api.weather.gov/points/'+LAT+','+LON,H).then(function(r){return r.json();})
   .then(function(p){return fetch(p.properties.forecast,H);}).then(function(r){return r.json();})
   .then(function(f){
@@ -453,15 +647,13 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
 
   fetch('https://api.weather.gov/alerts/active?point='+LAT+','+LON,H).then(function(r){return r.json();})
   .then(function(a){
-    var bar=document.getElementById('alertbar'),list=a.features||[];
-    bar.hidden=false;
+    var list=a.features||[];
     if(list.length){
       var names=list.map(function(x){return x.properties.event;}).filter(function(v,i,s){return s.indexOf(v)===i;});
-      bar.classList.add('active');
-      bar.innerHTML='<span class="dot"></span><b>Active for Wayne County:</b> '+esc(names.join(', '))+' · <a href="https://www.weather.gov/pah/" target="_blank" rel="noopener">Details</a>';
+      document.getElementById('alertText').textContent='Active now: '+names.join(', ')+'. Tap for details.';
       document.getElementById('heroAlerts').textContent=names.length+' active';
     }else{
-      bar.innerHTML='<span class="dot"></span>No active National Weather Service alerts for Wayne County';
+      document.getElementById('alertText').textContent='No active weather alerts for Wayne County right now';
       document.getElementById('heroAlerts').textContent='None active';
     }
   }).catch(function(){document.getElementById('heroAlerts').textContent='Unavailable in preview';});
