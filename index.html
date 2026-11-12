@@ -241,6 +241,7 @@ textarea{min-height:130px;resize:vertical}
 .loc-info h3{font-size:21px;font-weight:800;color:var(--navy)}
 .loc-info p{margin:6px 0 0;color:var(--muted)}
 .loc-info .phone{font-family:var(--display);font-size:28px;font-weight:800;color:var(--navy);text-decoration:none;display:inline-block;margin-top:8px}
+.loc-info .email{color:var(--navy-3);font-weight:600;word-break:break-all}
 .e911{background:var(--red);color:#fff;text-align:center;padding:12px 16px;font-weight:600}
 
 footer{background:var(--navy);color:#b9c6da;padding:40px 0;text-align:center;font-size:14.5px;border-top:4px solid var(--red)}
@@ -506,7 +507,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
 <div class="pagehead"><div class="wrap"><h1>Contact Us</h1><p>Reach the Wayne County EMA office</p></div></div>
 <section>
   <div class="wrap">
-    <div class="head"><h2>Get in touch</h2><p>Questions about preparedness, volunteering, or the agency? Send us a message.</p></div>
+    <div class="head"><h2>Get in touch</h2><p>Questions about preparedness, volunteering, or the agency? Send us a message. It goes to <span data-email-text>director@wabash.net</span>.</p></div>
     <div class="contact">
       <form class="card" id="contactForm" novalidate>
         <div class="row2">
@@ -517,7 +518,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
         <label for="m">Message</label><textarea id="m" required></textarea>
         <label class="check"><input type="checkbox"> Send me email updates</label>
         <button class="btn navy" type="submit">Send message</button>
-        <div class="formnote" id="formNote" role="status">Preview only: this form isn't connected yet.</div>
+        <div class="formnote" id="formNote" role="status"></div>
       </form>
       <div class="card loc">
         <div class="e911">For emergencies, call 911</div>
@@ -526,6 +527,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
           <h3>Wayne County EMA</h3>
           <p><span data-addr1>505 SW 10th St.</span><br><span data-addr2>Fairfield, Illinois 62837</span></p>
           <a class="phone" data-phone href="tel:+16188423884">(618) 842-3884</a>
+          <p><a class="email" data-email href="mailto:director@wabash.net">director@wabash.net</a></p>
         </div>
       </div>
     </div>
@@ -539,7 +541,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
     <ul class="fl">
       <li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#preparedness">Preparedness</a></li><li><a href="#members">Members</a></li><li><a href="#weather">Weather</a></li><li><a href="#contact">Contact</a></li>
     </ul>
-    <div>Wayne County Emergency Management Agency · <span data-addr1>505 SW 10th St.</span>, <span data-addr2>Fairfield, Illinois 62837</span> · <span data-phone-text>(618) 842-3884</span></div>
+    <div>Wayne County Emergency Management Agency · <span data-addr1>505 SW 10th St.</span>, <span data-addr2>Fairfield, Illinois 62837</span> · <span data-phone-text>(618) 842-3884</span> · <a data-email href="mailto:director@wabash.net">director@wabash.net</a></div>
     <div style="margin-top:8px;opacity:.7">Redesign concept. Not the official site.</div>
   </div>
 </footer>
@@ -584,7 +586,16 @@ var SHEET_ID = '1KCc5j1-E33leXtiCA51c1-8D-ShE9rzFCGMUw5rBXlk';
   window.addEventListener('hashchange',function(){show(location.hash.slice(1)||'home');});
   show(location.hash.slice(1)||'home');
 
-  document.getElementById('contactForm').addEventListener('submit',function(e){e.preventDefault();document.getElementById('formNote').style.display='block';});
+  var CONTACT_EMAIL='director@wabash.net';
+  document.getElementById('contactForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var f=e.target,note=document.getElementById('formNote'),g=function(id){return document.getElementById(id).value.trim();};
+    note.style.display='block';
+    if(!g('n')||!g('e')||!g('s')||!g('m')){note.textContent='Please fill in your name, email, subject, and message.';return;}
+    var body='From: '+g('n')+' <'+g('e')+'>\n'+(f.querySelector('input[type=checkbox]').checked?'Wants email updates: Yes\n':'')+'\n'+g('m');
+    note.textContent='Your email app should open with the message ready to send. If it does not, email '+CONTACT_EMAIL+' directly.';
+    window.location.href='mailto:'+CONTACT_EMAIL+'?subject='+encodeURIComponent(g('s'))+'&body='+encodeURIComponent(body);
+  });
   document.querySelectorAll('[data-placeholder]').forEach(function(a){a.addEventListener('click',function(e){if(a.hasAttribute('data-placeholder'))e.preventDefault();});a.title='Link to be added';});
 
   function esc(s){var d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML;}
@@ -719,6 +730,7 @@ var SHEET_ID = '1KCc5j1-E33leXtiCA51c1-8D-ShE9rzFCGMUw5rBXlk';
       var q=encodeURIComponent((v.streetaddress||'505 SW 10th St.')+', '+(v.citystatezip||'Fairfield, IL 62837'));
       if(m&&m.tagName==='IFRAME')m.src='https://maps.google.com/maps?q='+q+'&z=14&output=embed';
       else if(m)m.href='https://www.google.com/maps/search/?api=1&query='+q;}
+    if(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.email||'')){CONTACT_EMAIL=v.email;each('[data-email]',function(a){a.textContent=v.email;a.href='mailto:'+v.email;});each('[data-email-text]',function(a){a.textContent=v.email;});}
     var fb=safeUrl(v.facebooklink);if(fb)each('[data-fb]',function(a){a.href=fb;});
     var st=safeUrl(v.weatherstationlink);if(st)each('[data-station]',function(a){a.href=st;a.target='_blank';a.rel='noopener';a.removeAttribute('data-placeholder');a.removeAttribute('title');});
   }).catch(function(){});
