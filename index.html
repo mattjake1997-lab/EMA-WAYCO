@@ -88,6 +88,8 @@ nav a[aria-current=page]{color:#fff;border-bottom-color:var(--red)}
 .status h2{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#c3cede;font-weight:600}
 .temp{font-family:var(--display);font-size:80px;font-weight:800;line-height:1;margin:10px 0 2px}
 .cond{font-size:18px;color:#e6ecf5;min-height:1.6em}
+.station-btn{display:block;margin-top:18px;padding:12px 16px;border-radius:8px;background:#fff;color:var(--navy);font-family:var(--display);font-weight:800;font-size:14.5px;text-align:center;text-decoration:none}
+.station-btn:hover{background:var(--amber)}
 .status hr{border:0;border-top:1px solid rgba(255,255,255,.18);margin:18px 0}
 .status-row{display:flex;justify-content:space-between;gap:12px;font-size:15px;color:#c9d4e5}
 .status-row b{color:#fff;font-weight:600;text-align:right}
@@ -346,7 +348,14 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
   </div>
 </header>
 
-<a class="announce" id="announce" hidden><div class="wrap"><b>Announcement</b><span id="announceText"></span></div></a>
+<a class="alertbar" href="#weather" id="alertbar">
+  <div class="wrap">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 1.5 21h21zM11 9.5h2v6h-2zm0 7.5h2v2h-2z"/></svg>
+    <b>Emergency Information</b>
+    <span id="alertText">Check local alerts and weather updates for Wayne County</span>
+    <div class="ticker" id="ticker" hidden><div class="ticker-track" id="tickerTrack"></div></div>
+  </div>
+</a>
 
 <main>
 <div class="page active" id="home">
@@ -369,6 +378,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
       <div class="status-row"><span>NWS alerts</span><b id="heroAlerts">Checking…</b></div>
       <hr>
       <div class="status-row"><span>Office</span><b><a data-phone href="tel:+16188423884" style="text-decoration:none">(618) 842-3884</a></b></div>
+      <a class="station-btn" data-station href="https://ambientweather.net/dashboard/df9f62cf5556a32147b617c25d6c28e9" target="_blank" rel="noopener">Live WCEMA weather station ›</a>
     </aside>
   </div>
   <div class="phases-band"><div class="wrap">
@@ -382,14 +392,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
   </div></div>
 </div>
 
-<a class="alertbar" href="#weather" id="alertbar">
-  <div class="wrap">
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 1.5 21h21zM11 9.5h2v6h-2zm0 7.5h2v2h-2z"/></svg>
-    <b>Emergency Information</b>
-    <span id="alertText">Check local alerts and weather updates for Wayne County</span>
-    <div class="ticker" id="ticker" hidden><div class="ticker-track" id="tickerTrack"></div></div>
-  </div>
-</a>
+<a class="announce" id="announce" hidden><div class="wrap"><b>Announcement</b><span id="announceText"></span></div></a>
 
 <section class="alt">
   <div class="wrap">
@@ -489,7 +492,7 @@ footer a{color:#fff;text-decoration:none}footer a:hover{text-decoration:underlin
     </div>
     <p class="wx-note" id="wxNote">Source: National Weather Service, Paducah, KY.</p>
     <div class="grid g3">
-      <a class="card" href="#" data-placeholder data-station><span class="tag">Local data</span><h3>WCEMA weather station</h3><p>Temperature, dew point, wind, and rain from our own station.</p><span class="go">Open station ›</span></a>
+      <a class="card" data-station href="https://ambientweather.net/dashboard/df9f62cf5556a32147b617c25d6c28e9" target="_blank" rel="noopener"><span class="tag">Local data</span><h3>WCEMA weather station</h3><p>Temperature, dew point, wind, and rain from our own station.</p><span class="go">Open station ›</span></a>
       <a class="card" href="https://radar.weather.gov/" target="_blank" rel="noopener"><span class="tag">Radar</span><h3>Live radar</h3><p>National Weather Service radar for the region.</p><span class="go">Open radar ›</span></a>
       <a class="card" href="https://www.weather.gov/pah/" target="_blank" rel="noopener"><span class="tag">Forecast office</span><h3>NWS Paducah</h3><p>Watches, warnings, and forecast discussions.</p><span class="go">Visit NWS ›</span></a>
     </div>
